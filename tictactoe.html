@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+        }
+        .box{
+            display: grid;
+            grid-template-columns: repeat(3,100px);
+            grid-template-rows:repeat(3,100px);
+            grid-gap: 5px;
+            width: fit-content;
+            margin: auto;
+            background-image: linear-gradient(to right, rgb(248, 35, 35),rgb(247, 169, 25),rgb(251, 251, 28),rgb(16, 216, 16),rgb(48, 48, 245),rgb(152, 50, 225),rgb(189, 82, 189));
+            border: 5px solid grey;
+            border-radius: 10px;
+          }
+
+        .box > div{
+           border: 5px solid white;
+           color: black;
+           display: flex;
+           justify-content: center;
+           align-items: center;
+           font-size: 45px;
+           cursor: pointer;
+           border-radius: 10px;
+        }
+
+        .box > div:hover{
+    background-color: rgb(13, 113, 36);
+    transition: ease-in-out 0.5s;
+        }
+        .reset-wrap{
+            margin: 10px 0 0 0;
+            display: flex;
+           justify-content: center;
+           align-items: center;
+           cursor: pointer;
+        }
+        .reset{
+            width: 100px;
+            height: 50px;
+            border:none;
+            background-color: black;
+            color: white;
+            cursor: pointer;
+            font-size: large;
+            border-radius: 5px;
+        }
+        .reset:hover{
+            transition: ease-in-out 0.5s;
+            background-color: rgb(203, 205, 202);
+            color: rgb(233, 48, 94);
+        }
+        #show-warning{
+            font-size: 38px;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Tic Tak Toe</h1>
+    <div class="box">
+        <div id="boxes-1" onclick="show('1')"></div>
+        <div id="boxes-2" onclick="show('2')"></div>
+        <div id="boxes-3" onclick="show('3')"></div>
+        <div id="boxes-4" onclick="show('4')"></div>
+        <div id="boxes-5" onclick="show('5')"></div>
+        <div id="boxes-6" onclick="show('6')"></div>
+        <div id="boxes-7" onclick="show('7')"></div>
+        <div id="boxes-8" onclick="show('8')"></div>
+        <div id="boxes-9" onclick="show('9')"></div>
+    </div>
+    <div class="reset-wrap">
+        <button class="reset" onclick="reset()">RESET</button>
+    </div>
+    <div id="show-warning"></div>
+</body>
+<script>
+    let count = 0;
+
+function show(number){
+ if(count == 0){
+  let div = document.getElementById("boxes-"+ number);
+  if(div.innerText==""){
+   div.innerText = "X";
+   count = 1;
+   gameWon();
+  }else{
+   clear()
+  }
+}else{
+  let div = document.getElementById("boxes-"+ number);
+  if(div.innerText==""){
+   div.innerText = "O";
+   div.style.color = "white";
+   count = 0;
+   gameWon();
+  }else{
+   clear()
+  }
+ }
+
+}
+
+function clear(){
+   let warning = document.getElementById("show-warning");
+   warning.innerHTML = "&#9888; already-filled!"
+   setTimeout(()=>{
+       warning.innerText = ""
+   },1800)
+}
+
+function reset(){
+  window.location.reload()
+}
+
+function gameWon(){
+   let box1 = document.getElementById('boxes-1');
+   let box2 = document.getElementById('boxes-2');
+   let box3 = document.getElementById('boxes-3');
+   let box4 = document.getElementById('boxes-4');
+   let box5 = document.getElementById('boxes-5');
+   let box6 = document.getElementById('boxes-6');
+   let box7 = document.getElementById('boxes-7');
+   let box8 = document.getElementById('boxes-8');
+   let box9 = document.getElementById('boxes-9');
+   if(((box1.innerText == "X" && box2.innerText == "X" && box3.innerText == "X") || (box4.innerText == "X" && box5.innerText == "X" && box6.innerText == "X") || (box7.innerText == "X" && box8.innerText == "X" && box9.innerText == "X")) || ((box1.innerText == "X" && box4.innerText == "X" && box7.innerText == "X") || (box2.innerText == "X" && box5.innerText == "X" && box8.innerText == "X") || (box3.innerText == "X" && box6.innerText == "X" && box9.innerText == "X")) || ((box1.innerText == "X" && box5.innerText == "X" && box9.innerText == "X") || (box3.innerText == "X" && box5.innerText == "X" && box7.innerText == "X"))){
+       let warning = document.getElementById("show-warning");
+   warning.innerHTML = "&#127942; 'X' won the game"
+   }
+   else if(((box1.innerText == "O" && box2.innerText == "O" && box3.innerText == "O") || (box4.innerText == "O" && box5.innerText == "O" && box6.innerText == "O") || (box7.innerText == "O" && box8.innerText == "O" && box9.innerText == "O")) || ((box1.innerText == "O" && box4.innerText == "O" && box7.innerText == "O") || (box2.innerText == "O" && box5.innerText == "O" && box8.innerText == "O") || (box3.innerText == "O" && box6.innerText == "O" && box9.innerText == "O")) || ((box1.innerText == "O" && box5.innerText == "O" && box9.innerText == "O") || (box3.innerText == "O" && box5.innerText == "O" && box7.innerText == "O"))){
+       let warning = document.getElementById("show-warning");
+   warning.innerHTML = "&#127942; 'O' won the game"
+   }else if(box1.innerText !== "" && box2.innerText !== "" && box3.innerText !== "" && box4.innerText !== "" && box5.innerText !== "" && box6.innerText !== "" && box7.innerText !== "" && box8.innerText !== "" && box9.innerText !== "" ){
+       let warning = document.getElementById("show-warning");
+   warning.innerHTML = "&#127941; game got tied"
+   }
+}
+</script>
+</html>
